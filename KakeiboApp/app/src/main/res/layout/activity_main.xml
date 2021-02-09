@@ -6,31 +6,25 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/textView"
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+        android:id="@+id/calendarView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView" />
-
-    <CalendarView
-        android:id="@+id/calendarView"
-        android:layout_width="370dp"
-        android:layout_height="311dp"
+        android:background="#03A9F4"
+        app:mcv_selectionColor="#000"
+        app:mcv_showOtherDates="none"
+        app:mcv_showWeekDays="true"
+        app:mcv_tileHeight="45dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get date"
-        android:onClick="showDate"
+        android:text="TextView"
         app:layout_constraintBottom_toTopOf="@+id/calendarView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
