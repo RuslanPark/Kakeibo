@@ -21,13 +21,10 @@
         android:id="@+id/day_finances_fragment"
         android:name="com.ruslanpark.kakeiboapp.fragments.DayFinancesFragment"
         android:label="DayFinancesFragment">
-        <action
-            android:id="@+id/action_day_finances_fragment_self"
-            app:destination="@id/day_finances_fragment"
-            app:enterAnim="@anim/fragment_fade_enter"
-            app:exitAnim="@anim/fragment_fade_exit"
-            app:popEnterAnim="@anim/fragment_open_enter"
-            app:popExitAnim="@anim/fragment_open_exit" />
+        <argument
+            android:name="day"
+            android:defaultValue="0"
+            app:argType="integer" />
     </fragment>
 
 </navigation>

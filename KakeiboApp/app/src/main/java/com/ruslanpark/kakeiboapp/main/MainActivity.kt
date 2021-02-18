@@ -1,23 +1,26 @@
-package com.ruslanpark.kakeiboapp
+package com.ruslanpark.kakeiboapp.main
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
 import androidx.navigation.NavController
+import com.ruslanpark.kakeiboapp.R
 import com.ruslanpark.kakeiboapp.databinding.ActivityMainBinding
-import com.ruslanpark.kakeiboapp.fragments.CalendarFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var currentNavController: LiveData<NavController>? = null
-
-    private val monthArray = arrayOf("January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December")
+    private lateinit var appSettings: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        appSettings = getSharedPreferences("PREF", Context.MODE_PRIVATE)
 
         if (savedInstanceState == null) {
             binding.bottomNavigation.selectedItemId = R.id.calendar_fragment
@@ -26,16 +29,16 @@ class MainActivity : AppCompatActivity() {
         }
 
         val navGraphIds = listOf(
-                R.navigation.calendar_navigation_graph,
-                R.navigation.assessment_navigation_graph,
-                R.navigation.account_navigation_graph
+            R.navigation.calendar_navigation_graph,
+            R.navigation.assessment_navigation_graph,
+            R.navigation.account_navigation_graph
         )
 
         val controller = binding.bottomNavigation.setupWithNavController(
-                navGraphIds = navGraphIds,
-                fragmentManager = supportFragmentManager,
-                containerId = R.id.nav_host_container,
-                intent = intent
+            navGraphIds = navGraphIds,
+            fragmentManager = supportFragmentManager,
+            containerId = R.id.nav_host_container,
+            intent = intent
         )
         currentNavController = controller
 

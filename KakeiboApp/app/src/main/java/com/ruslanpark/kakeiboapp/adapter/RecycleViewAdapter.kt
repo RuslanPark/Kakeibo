@@ -5,12 +5,13 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.ruslanpark.kakeiboapp.databinding.ItemBinding
 
-class RecycleViewAdapter (private var counts : MutableList<Int>, val onClickDeleteButton : (Int) -> Unit) :
+class RecycleViewAdapter (private var counts : ArrayList< Pair<String, Int> >, val onClickDeleteButton : (Int) -> Unit) :
     RecyclerView.Adapter<RecycleViewAdapter.ValueViewHolder>() {
 
     class ValueViewHolder(val binding : ItemBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(number : Int) {
-            binding.textView.text = number.toString()
+        fun bind(number : Pair<String, Int>) {
+            binding.textViewDesc.text = number.first
+            binding.textView.text = number.second.toString()
         }
     }
 
@@ -26,14 +27,8 @@ class RecycleViewAdapter (private var counts : MutableList<Int>, val onClickDele
 
     override fun getItemCount() = counts.size
 
-    fun update(listOfPosts : MutableList<Int>) {
-        counts = listOfPosts
+    fun update(listOfPurchases : ArrayList< Pair<String, Int> >) {
+        counts = listOfPurchases
         notifyDataSetChanged()
     }
-
-    fun delete(position: Int) {
-        counts.removeAt(position)
-        notifyDataSetChanged()
-    }
-
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.ruslanpark.kakeiboapp
+package com.ruslanpark.kakeiboapp.main
 
 import android.content.Intent
 import android.util.SparseArray
