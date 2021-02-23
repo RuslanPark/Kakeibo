@@ -1,5 +1,6 @@
 package com.ruslanpark.kakeiboapp.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -12,6 +13,11 @@ class RecycleViewAdapter (private var counts : ArrayList< Pair<String, Int> >, v
         fun bind(number : Pair<String, Int>) {
             binding.textViewDesc.text = number.first
             binding.textView.text = number.second.toString()
+            if (number.second < 0) {
+                binding.textView.setTextColor(Color.RED)
+            } else {
+                binding.textView.setTextColor(Color.GREEN)
+            }
         }
     }
 

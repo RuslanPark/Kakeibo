@@ -5,21 +5,25 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
 import com.ruslanpark.kakeiboapp.R
 import com.ruslanpark.kakeiboapp.databinding.ActivityMainBinding
+import com.ruslanpark.kakeiboapp.viewmodel.TableViewModel
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private var currentNavController: LiveData<NavController>? = null
     private lateinit var appSettings: SharedPreferences
+    private lateinit var tableViewModel: TableViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        tableViewModel = ViewModelProvider(this).get(TableViewModel::class.java)
         appSettings = getSharedPreferences("PREF", Context.MODE_PRIVATE)
 
         if (savedInstanceState == null) {

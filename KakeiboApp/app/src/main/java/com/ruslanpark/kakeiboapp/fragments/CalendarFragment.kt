@@ -11,16 +11,12 @@ import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import com.ruslanpark.kakeiboapp.R
 import com.ruslanpark.kakeiboapp.databinding.FragmentCalendarBinding
 import com.ruslanpark.kakeiboapp.model.Table
 import com.ruslanpark.kakeiboapp.viewmodel.TableViewModel
-import org.intellij.lang.annotations.JdkConstants
-import java.time.LocalDate
-import java.time.LocalDateTime
 import java.util.*
-import kotlin.collections.ArrayList
-import kotlin.time.days
 
 class CalendarFragment : Fragment() {
 
@@ -28,10 +24,13 @@ class CalendarFragment : Fragment() {
     private val binding get() = _binding!!
     private lateinit var tableViewModel: TableViewModel
 
-    val PREF = "settings"
-    val PREF_MONTH = "month"
-    val PREF_YEAR = "year"
+    private val PREF = "settings"
+    private val PREF_MONTH = "month"
+    private val PREF_YEAR = "year"
     private lateinit var appSettings: SharedPreferences
+    var currentYear = 0
+    var currentMonth = 0
+
     private val monthArray = arrayOf(
         "January",
         "February",
@@ -46,19 +45,19 @@ class CalendarFragment : Fragment() {
         "November",
         "December"
     )
-    var currentYear = 0
-    var currentMonth = 0
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
         appSettings = context.getSharedPreferences(PREF, Context.MODE_PRIVATE)
+        currentYear = appSettings.getInt(PREF_YEAR, 0)
+        currentMonth = appSettings.getInt(PREF_MONTH, 0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        tableViewModel = ViewModelProvider(this).get(TableViewModel::class.java)
-        currentYear = appSettings.getInt(PREF_YEAR, 0)
-        currentMonth = appSettings.getInt(PREF_MONTH, 0)
+        tableViewModel = activity?.run {
+            ViewModelProvider(this).get(TableViewModel::class.java)
+        }!!
     }
 
     override fun onCreateView(
@@ -68,30 +67,10 @@ class CalendarFragment : Fragment() {
         _binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         if (currentMonth != 0 && currentYear != 0) {
-            //binding.calendarView.selectedDate = CalendarDay.from(currentYear, currentMonth, 1)
             binding.calendarView.currentDate = CalendarDay.from(currentYear, currentMonth, 1)
         }
-        binding.calendarView.setOnDateChangedListener { widget, date, _ ->
-            if (date.month == currentMonth && date.year == currentYear) {
-                val action = CalendarFragmentDirections.actionCalendarFragmentToDayFinancesFragment(date.day)
-                widget.findNavController().navigate(action)
-            } else {
-                activity?.let {
-                    val builder = AlertDialog.Builder(it)
-                    builder.setTitle("New month!")
-                        .setMessage("Start a new month!\nIf you have already started a month, it's data will be lost")
-                        .setIcon(R.drawable.ic_new)
-                        .setPositiveButton("Yes") {
-                                _, _ ->
-                            run {
-                                createNewData()
-                                //dialog.cancel()
-                            }
-                        }
-                        .setNegativeButton("No", null)
-                    builder.show()
-                }
-            }
+        binding.calendarView.setOnDateChangedListener { widget, date, selected ->
+            goToPurchaseList(widget, date)
         }
 
         return binding.root
@@ -100,6 +79,29 @@ class CalendarFragment : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun goToPurchaseList(widget : MaterialCalendarView, date : CalendarDay) {
+        if (date.month == currentMonth && date.year == currentYear) {
+            val action = CalendarFragmentDirections.actionCalendarFragmentToDayFinancesFragment(date.day)
+            widget.findNavController().navigate(action)
+        } else {
+            activity?.let {
+                val builder = AlertDialog.Builder(it)
+                builder.setTitle("New month!")
+                    .setMessage("Start a new month!\nIf you have already started a month, it's data will be lost")
+                    .setIcon(R.drawable.ic_new)
+                    .setPositiveButton("Yes") {
+                            _, _ ->
+                        run {
+                            createNewData()
+                            //dialog.cancel()
+                        }
+                    }
+                    .setNegativeButton("No", null)
+                builder.show()
+            }
+        }
     }
 
     private fun createNewData() {
@@ -116,6 +118,7 @@ class CalendarFragment : Fragment() {
         for (i in 1..num) {
             result.add(i - 1, table)
         }
+
         tableViewModel.clearData()
         tableViewModel.insertAllData(result)
     }
