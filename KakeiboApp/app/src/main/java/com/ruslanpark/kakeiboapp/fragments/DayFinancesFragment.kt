@@ -28,28 +28,6 @@ class DayFinancesFragment : Fragment() {
     private lateinit var tablePurchases: Table
     private lateinit var tableAdapter: RecycleViewAdapter
 
-    private fun showList() {
-        val viewManager = LinearLayoutManager(activity)
-        tableAdapter = RecycleViewAdapter(tablePurchases.purchases) {
-            tablePurchases.purchases.removeAt(it)
-            tableViewModel.insertData(tablePurchases)
-        }
-        if (tableAdapter.itemCount == 0) {
-            Toast.makeText(activity, "No data, please add some!", Toast.LENGTH_SHORT).show()
-        }
-        binding.recyclerView.apply {
-            layoutManager = viewManager
-            adapter = tableAdapter
-        }
-    }
-
-    private fun bindObservers() {
-        tableViewModel.readAllData.observe(this, {
-            tablePurchases = it[args.day - 1]
-            tableAdapter.update(tablePurchases.purchases)
-        })
-    }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         tableViewModel = activity?.run {
@@ -78,18 +56,37 @@ class DayFinancesFragment : Fragment() {
         _binding = null
     }
 
+    private fun showList() {
+        val viewManager = LinearLayoutManager(activity)
+        tableAdapter = RecycleViewAdapter(tablePurchases.purchases) {
+            tablePurchases.purchases.removeAt(it)
+            tableViewModel.insertData(tablePurchases)
+        }
+        binding.recyclerViewDailyData.apply {
+            layoutManager = viewManager
+            adapter = tableAdapter
+        }
+    }
+
+    private fun bindObservers() {
+        tableViewModel.readAllData.observe(this, {
+            tablePurchases = it[args.day - 1]
+            tableAdapter.update(tablePurchases.purchases)
+        })
+    }
+
     private fun doFloatingActionButton(view: View) {
         activity?.let {
 
             val linearLayout = LinearLayout(requireContext()).also {
                 it.gravity = LinearLayout.VERTICAL
 
-                it.addView(EditText(requireActivity()).also {
-                    it.hint = "Purchase"
+                it.addView(EditText(requireActivity()).also { it1 ->
+                    it1.hint = "Purchase"
                 }, 0)
 
-                it.addView(EditText(requireActivity()).also {
-                    it.hint = "Description"
+                it.addView(EditText(requireActivity()).also { it1 ->
+                    it1.hint = "Description"
                 }, 1)
             }
 
@@ -100,8 +97,8 @@ class DayFinancesFragment : Fragment() {
                 .setPositiveButton("OK") { _, _ ->
                     tablePurchases.purchases.add(
                         Pair(
-                            (linearLayout.get(1) as EditText).text.toString(),
-                            (linearLayout.get(0) as EditText).text.toString().toInt()
+                            (linearLayout[1] as EditText).text.toString(),
+                            (linearLayout[0] as EditText).text.toString().toInt()
                         )
                     )
                     tableViewModel.insertData(tablePurchases)

@@ -7,6 +7,15 @@
     tools:context=".fragments.AssessmentFragment">
 
 
+    <com.github.mikephil.charting.charts.BarChart
+        android:id="@+id/barChart"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/textViewSalary"
         android:layout_width="wrap_content"
@@ -14,57 +23,64 @@
         android:text="Salary"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintVertical_bias="0.2"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.12"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3"
+        app:layout_constraintVertical_bias="0.1" />
 
     <EditText
         android:id="@+id/editTextNumberSalary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
         android:ems="6"
-        android:textSize="15sp"
         android:inputType="numberDecimal"
+        android:textAlignment="textEnd"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSalary" />
+        app:layout_constraintVertical_bias="0.1"
+        app:layout_constraintHorizontal_bias="0.355"
+        app:layout_constraintStart_toEndOf="@+id/textViewSalary"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <TextView
         android:id="@+id/textViewSpending"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:text="Spending"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.1"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberSalary" />
+        app:layout_constraintHorizontal_bias="0.127"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSalary"
+        app:layout_constraintVertical_bias="0.2" />
 
     <EditText
         android:id="@+id/editTextNumberSpending"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAlignment="textEnd"
         android:ems="6"
-        android:textSize="15sp"
         android:inputType="numberDecimal"
+        android:textAlignment="textEnd"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewSpending" />
+        app:layout_constraintHorizontal_bias="0.292"
+        app:layout_constraintStart_toEndOf="@+id/textViewSpending"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberSalary"
+        app:layout_constraintVertical_bias="0.2" />
 
     <TextView
         android:id="@+id/textViewLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp"
         android:text="Left"
-        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/editTextNumberSpending" />
+        app:layout_constraintHorizontal_bias="0.152"
+        app:layout_constraintVertical_bias="0.4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewSpending" />
 
     <TextView
         android:id="@+id/textViewLeftNumber"
@@ -74,115 +90,17 @@
         android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewLeft" />
+        app:layout_constraintHorizontal_bias="0.375"
+        app:layout_constraintStart_toEndOf="@+id/textViewLeft"
+        app:layout_constraintTop_toBottomOf="@+id/editTextNumberSpending"
+        app:layout_constraintVertical_bias="0.4" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
+        android:id="@+id/guideline3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.5" />
-
-    <TextView
-        android:id="@+id/textViewWeek1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Week1"
-        app:layout_constraintBottom_toTopOf="@+id/textViewWeek2"
-        app:layout_constraintEnd_toEndOf="@+id/guideline2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.1" />
-
-    <TextView
-        android:id="@+id/textViewWeek2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Week2"
-        app:layout_constraintBottom_toTopOf="@+id/textViewWeek3"
-        app:layout_constraintEnd_toEndOf="@+id/textViewWeek1"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textViewWeek1"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek1"
-        app:layout_constraintVertical_bias="0.15" />
-
-    <TextView
-        android:id="@+id/textViewWeek3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Week3"
-        app:layout_constraintBottom_toTopOf="@+id/textViewWeek4"
-        app:layout_constraintEnd_toEndOf="@+id/textViewWeek2"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textViewWeek2"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek2"
-        app:layout_constraintVertical_bias="0.2" />
-
-    <TextView
-        android:id="@+id/textViewWeek4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Week4"
-        app:layout_constraintBottom_toTopOf="@+id/textViewWeek5"
-        app:layout_constraintEnd_toEndOf="@+id/textViewWeek3"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textViewWeek3"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek3"
-        app:layout_constraintVertical_bias="0.25" />
-
-    <TextView
-        android:id="@+id/textViewWeek5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Week5"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/textViewWeek4"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="@+id/textViewWeek4"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek4"
-        app:layout_constraintVertical_bias="0.3" />
-
-    <TextView
-        android:id="@+id/textViewWeek1Number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek1" />
-
-    <TextView
-        android:id="@+id/textViewWeek2Number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek2" />
-
-    <TextView
-        android:id="@+id/textViewWeek3Number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek3" />
-
-    <TextView
-        android:id="@+id/textViewWeek4Number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek4" />
-
-    <TextView
-        android:id="@+id/textViewWeek5Number"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="@+id/guideline2"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewWeek5" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
